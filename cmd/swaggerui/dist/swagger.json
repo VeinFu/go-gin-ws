@@ -1,0 +1,160 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "This documentation describes a demo web server based on Gin APIs and code will be found under https://github.com/VeinFu/go-gin-ws",
+    "title": "Demo Web Server based on Gin",
+    "contact": {
+      "name": "vien.fu",
+      "email": "vien.fu@ucloud.cn"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/users": {
+      "post": {
+        "description": "Create a new user",
+        "tags": [
+          "users"
+        ],
+        "operationId": "createUser",
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/userCreateReqParams"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/UserResponse"
+          },
+          "default": {
+            "$ref": "#/responses/ResponseError"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{name}": {
+      "get": {
+        "description": "just a desc",
+        "tags": [
+          "users"
+        ],
+        "summary": "Get specified user",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "User Name",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/UserResponse"
+          },
+          "400": {
+            "$ref": "#/responses/ResponseError"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ResponseError": {
+      "description": "ResponseError represent the response error struct",
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "x-go-name": "Message"
+        }
+      },
+      "x-go-package": "go-gin-ws/models"
+    },
+    "UserResponse": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "sex": {
+          "type": "string",
+          "x-go-name": "Sex"
+        }
+      },
+      "x-go-package": "go-gin-ws/models"
+    },
+    "userCreateReqParams": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "description": "User Address",
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "mobile": {
+          "description": "User Mobile Phone Number",
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "name": {
+          "description": "User Name",
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "sex": {
+          "description": "User Sex",
+          "type": "string",
+          "x-go-name": "Sex"
+        }
+      },
+      "x-go-package": "go-gin-ws/cmd"
+    }
+  },
+  "responses": {
+    "ResponseError": {
+      "description": "ResponseError is an error that is used when the request fail",
+      "schema": {
+        "$ref": "#/definitions/ResponseError"
+      }
+    },
+    "UserResponse": {
+      "description": "UserResponse retrieve specified user",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/UserResponse"
+          }
+        }
+      }
+    }
+  }
+}

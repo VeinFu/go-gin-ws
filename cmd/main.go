@@ -44,11 +44,18 @@ type userCreateReqParams struct {
 	Address string `json:"address"`
 }
 
-// userCreateReqParams is the createUser Operation parameters
+// userCreateReq is the createUser Operation parameters
 // swagger:parameters createUser
 type userCreateReq struct {
 	// in:body
 	Body userCreateReqParams
+}
+
+// testAPIReq is the getTestAPI parameters
+// swagger:parameters getTestAPI
+type testAPIReq struct {
+	Name string `form:"name" json:"name"`
+	APIFeature string `form:"api_feature" json:"api_feature"`
 }
 
 func main() {
@@ -81,6 +88,16 @@ func main() {
 	//       default: ResponseError
 	v1.POST("/users", createUser)
 
+	test := router.Group("/api/test")
+	// swagger:route GET /api/test test getTestAPI
+	//
+	// Just a test api
+	//
+	//     Responses:
+	//		 200: TestAPIResponse
+	//       default: ResponseError
+	test.GET("/", getTestAPI)
+
 	swaggerUI(router)
 
 	// router.Run(":8990")
@@ -89,6 +106,20 @@ func main() {
 		Handler:           router,
 	}
 	log.Fatal(httpServer.ListenAndServe())
+}
+
+func getTestAPI(c *gin.Context) {
+	var req testAPIReq
+	if err := c.ShouldBindQuery(&req); err != nil {
+		c.JSON(http.StatusBadRequest, models.NewResponseError(err.Error()))
+		return
+	}
+
+	resp := models.TestAPIResponse{
+		Name:       req.Name,
+		APIFeature: req.APIFeature,
+	}
+	c.JSON(http.StatusOK, models.GetTestAPIResponse(resp))
 }
 
 func getUser(c *gin.Context) {

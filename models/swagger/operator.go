@@ -6,9 +6,7 @@ import "go-gin-ws/models"
 // swagger:response UserResponse
 type swagUserResponse struct {
 	// in:body
-	Body struct {
-		Data models.UserResponse `json:"data"`
-	}
+	Body models.NewUserResponse
 }
 
 // ResponseError is an error that is used when the request fail
@@ -16,4 +14,11 @@ type swagUserResponse struct {
 type swagResponseError struct {
 	// in:body
 	Body models.ResponseError
+}
+
+// TestAPIResponse retrieve test result
+// swagger:response TestAPIResponse
+type swagTestAPIResponse struct {
+	// in:body
+	Body models.NewTestAPIResponse
 }

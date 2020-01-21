@@ -23,6 +23,37 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/test": {
+      "get": {
+        "description": "Just a test api",
+        "tags": [
+          "test"
+        ],
+        "operationId": "getTestAPI",
+        "parameters": [
+          {
+            "type": "string",
+            "x-go-name": "Name",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "x-go-name": "APIFeature",
+            "name": "api_feature",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/TestAPIResponse"
+          },
+          "default": {
+            "$ref": "#/responses/ResponseError"
+          }
+        }
+      }
+    },
     "/api/v1/users": {
       "post": {
         "description": "Create a new user",
@@ -78,6 +109,25 @@
     }
   },
   "definitions": {
+    "NewTestAPIResponse": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string",
+          "x-go-name": "Description"
+        }
+      },
+      "x-go-package": "go-gin-ws/models"
+    },
+    "NewUserResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/UserResponse"
+        }
+      },
+      "x-go-package": "go-gin-ws/models"
+    },
     "ResponseError": {
       "description": "ResponseError represent the response error struct",
       "type": "object",
@@ -93,18 +143,22 @@
       "type": "object",
       "properties": {
         "address": {
+          "description": "user current living address",
           "type": "string",
           "x-go-name": "Address"
         },
         "mobile": {
+          "description": "user mobile phone number",
           "type": "string",
           "x-go-name": "Mobile"
         },
         "name": {
+          "description": "user name",
           "type": "string",
           "x-go-name": "Name"
         },
         "sex": {
+          "description": "user sex",
           "type": "string",
           "x-go-name": "Sex"
         }
@@ -145,15 +199,16 @@
         "$ref": "#/definitions/ResponseError"
       }
     },
+    "TestAPIResponse": {
+      "description": "TestAPIResponse retrieve test result",
+      "schema": {
+        "$ref": "#/definitions/NewTestAPIResponse"
+      }
+    },
     "UserResponse": {
       "description": "UserResponse retrieve specified user",
       "schema": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "$ref": "#/definitions/UserResponse"
-          }
-        }
+        "$ref": "#/definitions/NewUserResponse"
       }
     }
   }

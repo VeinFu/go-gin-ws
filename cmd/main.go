@@ -18,6 +18,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -31,7 +32,6 @@ import (
 type userGetParams struct {
 	Name string `uri:"name" json:"name" binding:"required"`
 }
-
 
 type userCreateReqParams struct {
 	// User Name
@@ -83,7 +83,12 @@ func main() {
 
 	swaggerUI(router)
 
-	router.Run(":8990")
+	// router.Run(":8990")
+	httpServer := &http.Server{
+		Addr:              ":8990",
+		Handler:           router,
+	}
+	log.Fatal(httpServer.ListenAndServe())
 }
 
 func getUser(c *gin.Context) {

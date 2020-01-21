@@ -25,10 +25,11 @@
   "paths": {
     "/api/test": {
       "get": {
-        "description": "Just a test api",
+        "description": "a test for gin query restful api",
         "tags": [
           "test"
         ],
+        "summary": "just a test api",
         "operationId": "getTestAPI",
         "parameters": [
           {
@@ -56,10 +57,11 @@
     },
     "/api/v1/users": {
       "post": {
-        "description": "Create a new user",
+        "description": "create a new user based on some user parameters",
         "tags": [
           "users"
         ],
+        "summary": "create new user",
         "operationId": "createUser",
         "parameters": [
           {
@@ -82,11 +84,11 @@
     },
     "/api/v1/users/{name}": {
       "get": {
-        "description": "just a desc",
+        "description": "retrieve a specified user message according the user name",
         "tags": [
           "users"
         ],
-        "summary": "Get specified user",
+        "summary": "get a specified user",
         "operationId": "getUser",
         "parameters": [
           {

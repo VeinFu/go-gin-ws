@@ -64,8 +64,8 @@ func main() {
 	v1 := router.Group("/api/v1")
 	// swagger:operation GET /api/v1/users/{name} users getUser
 	// ---
-	// summary: Get specified user
-	// description: just a desc
+	// summary: get a specified user
+	// description: retrieve a specified user message according the user name
 	// parameters:
 	// - name: name
 	//   in: path
@@ -81,7 +81,9 @@ func main() {
 	v1.GET("/users/:name", getUser)
 	// swagger:route POST /api/v1/users users createUser
 	//
-	// Create a new user
+	// create new user
+	//
+	// create a new user based on some user parameters
 	//
 	//     Responses:
 	//		 200: UserResponse
@@ -91,7 +93,9 @@ func main() {
 	test := router.Group("/api/test")
 	// swagger:route GET /api/test test getTestAPI
 	//
-	// Just a test api
+	// just a test api
+	//
+	// a test for gin query restful api
 	//
 	//     Responses:
 	//		 200: TestAPIResponse
